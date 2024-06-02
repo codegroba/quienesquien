@@ -1,10 +1,12 @@
+import numpy as np
+
 '''
 Creamos una base de datos temporal en python.
 '''
-Personaxes          = ['Max','Susan','Tom','Sam','Anne','Robert','Anita','Bill','Claire','Bernard','Alfred','Frans','George','David','Paul','Joe','Phillip','Peter','Alex','Maria','Eric','Herman','Richard','Charles']
+personajes          = ['Max','Susan','Tom','Sam','Anne','Robert','Anita','Bill','Claire','Bernard','Alfred','Frans','George','David','Paul','Joe','Phillip','Peter','Alex','Maria','Eric','Herman','Richard','Charles']
 
 mujer               = [  0  ,   1   ,  0  ,  0  ,   1  ,   0    ,   1   ,  0   ,   1    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Es mujer?']
-hombre              = [  1  ,   0   ,  1  ,  1  ,   0  ,   1    ,   0   ,  1   ,   0    ,    1    ,   1    ,   1   ,   1    ,   1   ,  1   ,  1  ,    1    ,   1   ,  1   ,   0   ,  0   ,   1    ,    1    ,   1     ],['Es hombre?']
+hombre              = [  1  ,   0   ,  1  ,  1  ,   0  ,   1    ,   0   ,  1   ,   0    ,    1    ,   1    ,   1   ,   1    ,   1   ,  1   ,  1  ,    1    ,   1   ,  1   ,   0   ,  1   ,   1    ,    1    ,   1     ],['Es hombre?']
 
 pelirrojo           = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  1   ,   1    ,    0    ,   1    ,   1   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   1    ,    0    ,   0     ],['Es pelirrojo?']
 pelo_castaño        = [  0  ,   0   ,  0  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    1    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Tiene el pelo castaño?']
@@ -45,8 +47,11 @@ barba               = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  1   ,
 
 cara_alargada       = [  0  ,   0   ,  1  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   0    ,    1    ,   0     ],['Tiene la cara alargada?']
 cara_triste         = [  0  ,   0   ,  0  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   1    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene cara triste?']
-mejillas sonrosadas = [  0  ,   1   ,  0  ,  0  ,   0  ,   1    ,   1   ,  1   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    1    ,   0   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene las mejillas sonrosadas?']
+mejillas_sonrosadas = [  0  ,   1   ,  0  ,  0  ,   0  ,   1    ,   1   ,  1   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    1    ,   0   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene las mejillas sonrosadas?']
 
+lista_preguntas =[mujer, hombre, pelirrojo, pelo_castaño, pelo_rubio, pelo_negro, pelo_blanco, raya_al_lado, raya_al_medio, calva, pelo_largo, pelo_corto, nariz_grande, nariz_pequeña, ojos_marrones,
+                  ojos_azules, boca_pequeña, boca_grande, labios_gruesos, cejas_gruesas, cejas_finas, sombrero, gorra, gafas, pendientes, orejas_grandes, bigote, barba, cara_alargada, cara_triste,
+                  mejillas_sonrosadas]
 
 def levantaTablero():
     '''
@@ -56,7 +61,8 @@ def levantaTablero():
     Return:
         list: lista de personajes
     '''
-    return personajes
+    tablero = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    return tablero
 
 def preguntaIa(personajes, pregunta_inicial = False):
     '''
@@ -68,13 +74,37 @@ def preguntaIa(personajes, pregunta_inicial = False):
         pregunta_inicial (bool): Evita pregunta inicial hombre o mujer.
 
     Returns:
-        str: retorna la pregunta a realizar.
+        list: lista con personajes con la caracteristica y pregunta.
     '''
+    num_carac = []
+    for a in lista_preguntas:
+        # Vemos cuntos de los personejes en juego tienen la característica de cada pregunta.
+        b = np.array(personajes) * np.array(a[0])
+        # Almacenamos una lista con el resultado de todas las preguntas.
+        num_carac.append((b == 1).sum())
+
+    # Lo ideal es elegir una pregunta que descarte la mitad de los personajes en juego. Si no 
+    # es posible elegiremos la mas cercana a la mitad.
+    numPersonajes = (np.array(personajes) == 1).sum()
+    print(f'num personaxes {numPersonajes}')
+    mitadPersonajes = numPersonajes//2
+    aryDiferencial = np.absolute(num_carac - mitadPersonajes)
+    indiceCercano = aryDiferencial.argmin()
+    valorCercano = num_carac[indiceCercano]
+
+    print(f'ary direfencia {aryDiferencial}')
+    print(f'valorCercano {valorCercano}')
+
+    print(lista_preguntas[indiceCercano])
+
+    print(num_carac)
+    aryPregunta = np.array(lista_preguntas[indiceCercano][0])
+    pregunta = lista_preguntas[indiceCercano][1]
 
     # Temos que consultar todas as preguntas e ver cal facemos.
-    return ""
+    return aryPregunta, pregunta
 
-def descartaPersonejes(personajes, pregunta, s/n):
+def descartaPersonejes(tablero, aryPregunta, s_n):
     '''
     Consultamos base de datos y vemos cual cumple o no las condidiones
     para descartar personajes.
@@ -87,32 +117,47 @@ def descartaPersonejes(personajes, pregunta, s/n):
     Returns:
         list: lista de personajes que siguen en juego.
     '''
-    return personajes
+    if s_n == 'n':
+        # Cambiamos 0 po 1 e 1 por 0
+        aryPregunta[aryPregunta == 1] = 2
+        aryPregunta[aryPregunta == 0] = 1
+        aryPregunta[aryPregunta == 2] = 0
 
+    tablero = tablero * aryPregunta
+
+
+
+    return tablero
+
+def personajesVivos(tablero):
+    '''
+    Muestra los personajes que quedan en juego.
+    '''
+    for a in range(len(personajes)):
+        if tablero[a] == 1:
+            print(personajes[a])
 
 def main():
 
     # Levantamos el tablero y damos comienzo a la partida
     tablero = levantaTablero()
-    # Necesitamos una memoria para no preguntar si es hombre o mujer al inicio
-    pregunta_inicial = True
-    # Preguntaremos que personaje quiere seleccionar
-    print("Que personeje quiere ser?:")
-    print(tablero)
-
 
     for a in range(6):
-        pregunta = preguntaIa(tablero, pregunta_inicial)
+        aryPregunta, pregunta = preguntaIa(tablero)
+
         print(pregunta)
-        pregunta_inicial = False
-        # Esperamos a resposta
-        tablero = descartaPersonajes(tablero, pregunta, respuesta)
-        # Evaluamos si solo queda uno y acabamos
-        if len(tablero) == 1:
+        print('s ou n:')
+        resposta = input()
+
+        print(tablero)
+        tablero = descartaPersonejes(tablero, aryPregunta, resposta)
+        print(tablero)
+        personajesVivos(tablero)
+        numPersonajes = (np.array(tablero) == 1).sum()
+        if numPersonajes == 1:
+            print(f'El personaje es')
+            personajesVivos(tablero)
             break
-
-    # Evaluamos si solo queda uno o tenemos que elegir
-
 
 if __name__ == "__main__":
     main()
