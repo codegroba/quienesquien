@@ -3,8 +3,10 @@ import csv
 
 def levantaTablero():
     '''
-    Al iniciar la partida cargamos todos los personajes en memoria los cuales
-    iremos descartando a lo largo de la partida.
+    Al iniciar la partida cargamos varias listas con los personajes, las preguntas,
+    un array con unos y ceros de si los personajes cumplen cada característica y
+    un array con todo unos que indica que representan a los personajes. Los datos
+    están alojados en una base de datos en csv.
 
     Return:
         list: lista de personajes
@@ -44,11 +46,14 @@ def preguntaIa(tablero, lista_caract, lista_preguntas, pregunta_inicial = False)
     que debemos realizar.
 
     Args:
-        personejes (list): lista de personajes que siguen en el juego.
+        tablero (np.array): personajes que continuan en el juego.
+        lista_preguntas (list): lista de preguntas en texto.
+        lista_caract (np.array): array con las características de cada personaje.
         pregunta_inicial (bool): Evita pregunta inicial hombre o mujer.
 
     Returns:
-        list: lista con personajes con la caracteristica y pregunta.
+        np.array: con 1 y 0 que define quien cumple la característica de la pregunta.
+        str: pregunta a realizar
     '''
     num_carac = []
     for a in lista_caract:
@@ -67,7 +72,6 @@ def preguntaIa(tablero, lista_caract, lista_preguntas, pregunta_inicial = False)
     aryPregunta = lista_caract[indiceCercano]
     pregunta = lista_preguntas[indiceCercano]
 
-    # Temos que consultar todas as preguntas e ver cal facemos.
     return aryPregunta, pregunta
 
 def descartaPersonejes(tablero, aryPregunta, s_n):
@@ -76,20 +80,21 @@ def descartaPersonejes(tablero, aryPregunta, s_n):
     para descartar personajes.
 
     Args:
-        personajes (list): personajes no descartados.
-        pregunta (str): pregunta realizada.
+        tablero (np.array): personajes no descartados.
+        aryPregunta (np.array): pregunta realizada.
         s/n (bool): respuesta true o false del oponente.
 
     Returns:
-        list: lista de personajes que siguen en juego.
+        np.array: lista de personajes que siguen en juego.
     '''
+    # Si la respuesta es no invertimos el array de la pregunta.
     if s_n == 'n':
         for a in range(len(aryPregunta)):
             if aryPregunta[a] == 1.0:
                 aryPregunta[a] = 0.0
             else:
                 aryPregunta[a] = 1.0
-
+    # Multiplicamos la pregunta por los personajes
     tablero = tablero * aryPregunta
 
     return tablero
@@ -97,6 +102,11 @@ def descartaPersonejes(tablero, aryPregunta, s_n):
 def personajesVivos(tablero, lista_personajes):
     '''
     Muestra los personajes que quedan en juego.
+
+    Args:
+        tablero (np.array): personajes no descartados.
+        lista_personajes (list): nombres de los personajes.
+
     '''
     for a in range(len(lista_personajes)):
         if tablero[a] == 1:
@@ -107,14 +117,18 @@ def main():
     # Levantamos el tablero y damos comienzo a la partida
     lista_personajes, lista_preguntas, lista_caract, tablero = levantaTablero()
 
+    # Bucle con las 6 jugadas como máximo
     for a in range(6):
+        # Funcion que busca la pregunta mas optima.
         aryPregunta, pregunta = preguntaIa(tablero, lista_caract, lista_preguntas)
-
+        # Realizamos la pregunta y esperamos respuesta.
         print(pregunta)
         print('s ou n:')
         resposta = input()
+        # Retiramos los personajes que no cumplan la característica
         tablero = descartaPersonejes(tablero, aryPregunta, resposta)
         personajesVivos(tablero, lista_personajes)
+        # Si solo queda un personaje salimos
         numPersonajes = (np.array(tablero) == 1).sum()
         if numPersonajes == 1:
             print(f'El personaje es')
