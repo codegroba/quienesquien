@@ -1,57 +1,5 @@
 import numpy as np
-
-'''
-Creamos una base de datos temporal en python.
-'''
-personajes          = ['Max','Susan','Tom','Sam','Anne','Robert','Anita','Bill','Claire','Bernard','Alfred','Frans','George','David','Paul','Joe','Phillip','Peter','Alex','Maria','Eric','Herman','Richard','Charles']
-
-mujer               = [  0  ,   1   ,  0  ,  0  ,   1  ,   0    ,   1   ,  0   ,   1    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Es mujer?']
-hombre              = [  1  ,   0   ,  1  ,  1  ,   0  ,   1    ,   0   ,  1   ,   0    ,    1    ,   1    ,   1   ,   1    ,   1   ,  1   ,  1  ,    1    ,   1   ,  1   ,   0   ,  1   ,   1    ,    1    ,   1     ],['Es hombre?']
-
-pelirrojo           = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  1   ,   1    ,    0    ,   1    ,   1   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   1    ,    0    ,   0     ],['Es pelirrojo?']
-pelo_castaño        = [  0  ,   0   ,  0  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    1    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Tiene el pelo castaño?']
-pelo_rubio          = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   1   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   1   ,  0   ,  1  ,    0    ,   0   ,  0   ,   0   ,  1   ,   0    ,    0    ,   1     ],['Es rubio?']
-pelo_negro          = [  1  ,   0   ,  1  ,  0  ,   1  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    1    ,   0   ,  1   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene el pelo negro?']
-pelo_blanco         = [  0  ,   1   ,  0  ,  1  ,   0  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   1    ,   0   ,  1   ,  0  ,    0    ,   1   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene el pelo blanco?']
-
-raya_al_lado        = [  0  ,   1   ,  0  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   1   ,  1   ,  0  ,    0    ,   1   ,  0   ,   0   ,  0   ,   0    ,    0    ,   1     ],['Tiene la raya al lado?']
-raya_al_medio       = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   1   ,  0   ,   0    ,    0    ,   1    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene la raya al medio?']
-
-calva               = [  0  ,   0   ,  1  ,  1  ,   0  ,   0    ,   0   ,  1   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   1    ,    1    ,   0     ],['Es calvo?']
-pelo_largo          = [  0  ,   1   ,  0  ,  0  ,   0  ,   0    ,   1   ,  0   ,   0    ,    0    ,   1    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Tiene el pelo largo?']
-pelo_corto          = [  1  ,   0   ,  0  ,  0  ,   1  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   1   ,   0    ,   0   ,  0   ,  1  ,    1    ,   0   ,  1   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene el pelo corto?']
-
-nariz_grande        = [  1  ,   0   ,  0  ,  0  ,   1  ,   1    ,   0   ,  0   ,   0    ,    1    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   1   ,  0   ,   0   ,  0   ,   1    ,    0    ,   0     ],['Tiene la nariz grande?']
-nariz_pequeña       = [  0  ,   1   ,  1  ,  1  ,   0  ,   0    ,   1   ,  1   ,   1    ,    0    ,   1    ,   1   ,   1    ,   1   ,  1   ,  1  ,    1    ,   0   ,  1   ,   1   ,  1   ,   0    ,    1    ,   1     ],['Tiene la nariz pequeña?']
-
-ojos_marrones       = [  1  ,   1   ,  0  ,  1  ,   1  ,   0    ,   1   ,  1   ,   1    ,    1    ,   0    ,   1   ,   1    ,   1   ,  1   ,  1  ,    1    ,   0   ,  1   ,   1   ,  1   ,   1    ,    1    ,   1     ],['Tiene los ojos marrones?']
-ojos_azules         = [  0  ,   0   ,  1  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    0    ,   1    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   1   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene los ojos azules?']
-
-boca_pequeña        = [  0  ,   0   ,  1  ,  1  ,   1  ,   0    ,   1   ,  1   ,   1    ,    1    ,   1    ,   1   ,   0    ,   0   ,  1   ,  1  ,    0    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Tiene la boca pequeña?']
-boca_grande         = [  1  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   1    ,   0   ,  0   ,  0  ,    0    ,   1   ,  1   ,   0   ,  1   ,   0    ,    0    ,   1     ],['Tiene la boca grande?']
-
-labios_gruesos      = [  1  ,   1   ,  0  ,  0  ,   0  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   1   ,  1   ,   0   ,  0   ,   0    ,    0    ,   1     ],['Tiene los labios gruesos?']
-
-cejas_gruesas       = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   1   ,   0    ,   0   ,  1   ,  0  ,    0    ,   1   ,  0   ,   0   ,  0   ,   1    ,    0    ,   0     ],['Tiene las cejas gruesas?']
-cejas_finas         = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  0   ,   0    ,    1    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    1    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Tiene las cejas finas?']
-
-sombrero            = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  0   ,   1    ,    1    ,   0    ,   0   ,   1    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   1   ,  1   ,   0    ,    0    ,   0     ],['Lleva sombrero?']
-gorra               = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  1   ,   0    ,    0    ,   0     ],['Lleva gorra?']
-gafas               = [  0  ,   0   ,  1  ,  1  ,   0  ,   0    ,   0   ,  0   ,   1    ,    0    ,   0    ,   0   ,   0    ,   0   ,  1   ,  1  ,    0    ,   0   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Lleva gafas?']
-pendientes          = [  0  ,   0   ,  0  ,  0  ,   1  ,   0    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   1   ,  0   ,   0    ,    0    ,   0     ],['Lleva pendientes?']
-
-orejas_grandes      = [  1  ,   0   ,  0  ,  0  ,   0  ,   1    ,   0   ,  1   ,   0    ,    0    ,   1    ,   0   ,   0    ,   1   ,  1   ,  0  ,    1    ,   0   ,  1   ,   0   ,  0   ,   0    ,    1    ,   1     ],['Tiene las orejas grandes?']
-
-bigote              = [  1  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  0   ,   0    ,    0    ,   1    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  1   ,   0   ,  0   ,   0    ,    1    ,   1     ],['Tiene bigote?']
-barba               = [  0  ,   0   ,  0  ,  0  ,   0  ,   0    ,   0   ,  1   ,   0    ,    0    ,   1    ,   0   ,   0    ,   1   ,  0   ,  0  ,    1    ,   0   ,  0   ,   0   ,  0   ,   0    ,    1    ,   0     ],['Tiene barba?']
-
-cara_alargada       = [  0  ,   0   ,  1  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   0    ,    1    ,   0     ],['Tiene la cara alargada?']
-cara_triste         = [  0  ,   0   ,  0  ,  0  ,   0  ,   1    ,   0   ,  0   ,   0    ,    0    ,   0    ,   0   ,   1    ,   0   ,  0   ,  0  ,    0    ,   0   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene cara triste?']
-mejillas_sonrosadas = [  0  ,   1   ,  0  ,  0  ,   0  ,   1    ,   1   ,  1   ,   0    ,    0    ,   0    ,   0   ,   0    ,   0   ,  0   ,  0  ,    1    ,   0   ,  0   ,   0   ,  0   ,   0    ,    0    ,   0     ],['Tiene las mejillas sonrosadas?']
-
-lista_preguntas =[mujer, hombre, pelirrojo, pelo_castaño, pelo_rubio, pelo_negro, pelo_blanco, raya_al_lado, raya_al_medio, calva, pelo_largo, pelo_corto, nariz_grande, nariz_pequeña, ojos_marrones,
-                  ojos_azules, boca_pequeña, boca_grande, labios_gruesos, cejas_gruesas, cejas_finas, sombrero, gorra, gafas, pendientes, orejas_grandes, bigote, barba, cara_alargada, cara_triste,
-                  mejillas_sonrosadas]
+import csv
 
 def levantaTablero():
     '''
@@ -60,11 +8,37 @@ def levantaTablero():
 
     Return:
         list: lista de personajes
+        list: lista de preguntas
+        np.array: lista de caracteristicas
+        np.array: tablero
     '''
-    tablero = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-    return tablero
+    lista_caract = []
+    lista_preguntas = []
+    csvFileArray = []
 
-def preguntaIa(personajes, pregunta_inicial = False):
+    # Abrimos base de datos y lo cargamos en variables
+    with open('db_qeq.csv', newline='') as csvfile:
+        spamreader  = csv.reader(csvfile, delimiter=',', quotechar='|')
+        for row in spamreader:
+            csvFileArray.append(row)
+
+        lista_personajes = csvFileArray[0]
+        lista_personajes.pop(0)
+        csvFileArray.pop(0)
+        for a in csvFileArray:
+            lista_preguntas.append(a[0])
+            a.pop(0)
+            list_float = list(map(float, a))
+            np.array(list_float)
+            lista_caract.append(list_float)
+
+        np.array(lista_caract)
+    # El tablero es una lista de 1 por cada personaje
+    tablero = np.ones(24)
+
+    return lista_personajes, lista_preguntas, lista_caract, tablero
+
+def preguntaIa(tablero, lista_caract, lista_preguntas, pregunta_inicial = False):
     '''
     Le pasaremos los personajes que quedan en juego y nos dara la pregunta
     que debemos realizar.
@@ -77,29 +51,21 @@ def preguntaIa(personajes, pregunta_inicial = False):
         list: lista con personajes con la caracteristica y pregunta.
     '''
     num_carac = []
-    for a in lista_preguntas:
-        # Vemos cuntos de los personejes en juego tienen la característica de cada pregunta.
-        b = np.array(personajes) * np.array(a[0])
+    for a in lista_caract:
+        # Vemos cuantos de los personejes en juego tienen la característica de cada pregunta.
+        b = tablero * np.array(a)
         # Almacenamos una lista con el resultado de todas las preguntas.
         num_carac.append((b == 1).sum())
 
     # Lo ideal es elegir una pregunta que descarte la mitad de los personajes en juego. Si no 
     # es posible elegiremos la mas cercana a la mitad.
-    numPersonajes = (np.array(personajes) == 1).sum()
-    print(f'num personaxes {numPersonajes}')
+    numPersonajes = (np.array(tablero) == 1).sum()
     mitadPersonajes = numPersonajes//2
     aryDiferencial = np.absolute(num_carac - mitadPersonajes)
     indiceCercano = aryDiferencial.argmin()
     valorCercano = num_carac[indiceCercano]
-
-    print(f'ary direfencia {aryDiferencial}')
-    print(f'valorCercano {valorCercano}')
-
-    print(lista_preguntas[indiceCercano])
-
-    print(num_carac)
-    aryPregunta = np.array(lista_preguntas[indiceCercano][0])
-    pregunta = lista_preguntas[indiceCercano][1]
+    aryPregunta = lista_caract[indiceCercano]
+    pregunta = lista_preguntas[indiceCercano]
 
     # Temos que consultar todas as preguntas e ver cal facemos.
     return aryPregunta, pregunta
@@ -118,45 +84,41 @@ def descartaPersonejes(tablero, aryPregunta, s_n):
         list: lista de personajes que siguen en juego.
     '''
     if s_n == 'n':
-        # Cambiamos 0 po 1 e 1 por 0
-        aryPregunta[aryPregunta == 1] = 2
-        aryPregunta[aryPregunta == 0] = 1
-        aryPregunta[aryPregunta == 2] = 0
+        for a in range(len(aryPregunta)):
+            if aryPregunta[a] == 1.0:
+                aryPregunta[a] = 0.0
+            else:
+                aryPregunta[a] = 1.0
 
     tablero = tablero * aryPregunta
 
-
-
     return tablero
 
-def personajesVivos(tablero):
+def personajesVivos(tablero, lista_personajes):
     '''
     Muestra los personajes que quedan en juego.
     '''
-    for a in range(len(personajes)):
+    for a in range(len(lista_personajes)):
         if tablero[a] == 1:
-            print(personajes[a])
+            print(lista_personajes[a])
 
 def main():
 
     # Levantamos el tablero y damos comienzo a la partida
-    tablero = levantaTablero()
+    lista_personajes, lista_preguntas, lista_caract, tablero = levantaTablero()
 
     for a in range(6):
-        aryPregunta, pregunta = preguntaIa(tablero)
+        aryPregunta, pregunta = preguntaIa(tablero, lista_caract, lista_preguntas)
 
         print(pregunta)
         print('s ou n:')
         resposta = input()
-
-        print(tablero)
         tablero = descartaPersonejes(tablero, aryPregunta, resposta)
-        print(tablero)
-        personajesVivos(tablero)
+        personajesVivos(tablero, lista_personajes)
         numPersonajes = (np.array(tablero) == 1).sum()
         if numPersonajes == 1:
             print(f'El personaje es')
-            personajesVivos(tablero)
+            personajesVivos(tablero, lista_personajes)
             break
 
 if __name__ == "__main__":
