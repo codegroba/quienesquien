@@ -18,7 +18,7 @@ He elegido un algoritmo de optimización "voraz". El planteamiento es que dados 
 
 ## 4. Agente.
 
-![](/home/cristian/CursoIA/MIA/Qeq/Axente.png)
+![](Axente.png)
 
 ## 5. Programación lógica.
 
